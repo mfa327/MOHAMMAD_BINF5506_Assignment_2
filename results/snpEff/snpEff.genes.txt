@@ -1,0 +1,11 @@
+# The following table is formatted as tab separated values. 
+#GeneName	GeneId	TranscriptId	BioType	variants_impact_HIGH	variants_impact_LOW	variants_impact_MODERATE	variants_impact_MODIFIER	variants_effect_downstream_gene_variant	variants_effect_frameshift_variant	variants_effect_missense_variant	variants_effect_splice_region_variant	variants_effect_stop_gained	variants_effect_stop_lost	variants_effect_stop_retained_variant	variants_effect_synonymous_variant	variants_effect_upstream_gene_variant
+GP	Gene_5899_8304	AAD14584.1	protein_coding	0	16	5	316	174	0	5	1	0	0	1	15	142
+GP	Gene_5899_8304	AAD14586.1	protein_coding	0	13	2	318	176	0	2	0	0	0	0	13	142
+GP	Gene_5899_8304	sGP	protein_coding	6	24	28	305	163	2	28	0	3	1	1	23	142
+L	Gene_11500_18281	polymerase	protein_coding	0	143	29	209	40	0	29	0	0	0	0	143	169
+NP	Gene_55_3025	nucleoprotein	protein_coding	0	48	15	160	137	0	15	0	0	0	0	48	23
+VP24	Gene_9884_11517	VP24	protein_coding	0	16	1	308	133	0	1	0	0	0	0	16	175
+VP30	Gene_8287_9739	VP30	protein_coding	0	12	0	305	150	0	0	0	0	0	0	12	155
+VP35	Gene_3031_4406	VP35	protein_coding	0	8	4	259	158	0	4	0	0	0	0	8	101
+VP40	Gene_4389_5893	VP40	protein_coding	0	12	3	304	177	0	3	0	0	0	0	12	127
