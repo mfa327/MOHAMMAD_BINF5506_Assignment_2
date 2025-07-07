@@ -62,6 +62,18 @@ rule sort_bam:
         """
         samtools sort {input} -o {output}
         """
+# 7
+rule call_variants:
+    input:
+        bam="results/aligned/SRR1972739.sorted.bam",
+        ref="results/raw/reference.fasta"
+    output:
+        vcf="results/variants/raw_variants.vcf"
+    shell:
+        """
+        bcftools mpileup -f {input.ref} {input.bam} | \
+        bcftools call -mv -Ov -o {output.vcf}
+        """
 
 
 rule build_snpeff_db:
