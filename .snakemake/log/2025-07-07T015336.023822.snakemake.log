@@ -1,0 +1,50 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+annotate_variants        1
+call_variants            1
+index_bam                1
+mark_duplicates          1
+sort_bam                 1
+total                    6
+
+Select jobs to execute...
+
+[Mon Jul  7 01:53:36 2025]
+rule sort_bam:
+    input: results/aligned/aligned.sam
+    output: results/aligned/aligned.sorted.bam
+    jobid: 4
+    reason: Missing output files: results/aligned/aligned.sorted.bam; Updated input files: results/aligned/aligned.sam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 01:53:36 2025]
+Finished job 4.
+1 of 6 steps (17%) done
+Select jobs to execute...
+
+[Mon Jul  7 01:53:36 2025]
+rule mark_duplicates:
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/dedup.bam, results/aligned/dup_metrics.txt
+    jobid: 3
+    reason: Input files updated by another job: results/aligned/aligned.sorted.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 01:53:36 2025]
+Error in rule mark_duplicates:
+    jobid: 3
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/dedup.bam, results/aligned/dup_metrics.txt
+    shell:
+        gatk MarkDuplicates -I results/aligned/aligned.sorted.bam -O results/aligned/dedup.bam -M results/aligned/dup_metrics.txt
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T015336.023822.snakemake.log

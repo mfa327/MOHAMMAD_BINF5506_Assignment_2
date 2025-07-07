@@ -1,0 +1,68 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+align_reads              1
+all                      1
+annotate_variants        1
+build_snpeff_db          1
+call_variants            1
+download_sra             1
+extract_sequence         1
+index_bam                1
+mark_duplicates          1
+sort_bam                 1
+upload_s3                1
+total                   11
+
+Select jobs to execute...
+
+[Mon Jul  7 04:06:29 2025]
+rule build_snpeff_db:
+    input: results/raw/reference.fasta
+    output: results/snpEff/data/reference_db/.db_built
+    jobid: 11
+    reason: Missing output files: results/snpEff/data/reference_db/.db_built
+    resources: tmpdir=/tmp
+
+
+[Mon Jul  7 04:06:29 2025]
+rule download_sra:
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    jobid: 3
+    reason: Missing output files: results/raw/SRR1972739/SRR1972739.sra; Updated input files: results/snakemake/.dirs_created
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 04:06:29 2025]
+Error in rule download_sra:
+    jobid: 3
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    shell:
+        
+        prefetch SRR1972739 -O results/raw
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Jul  7 04:06:30 2025]
+Error in rule build_snpeff_db:
+    jobid: 11
+    input: results/raw/reference.fasta
+    output: results/snpEff/data/reference_db/.db_built
+    shell:
+        
+        mkdir -p results/snpEff/data/reference_db
+        cp results/raw/reference.fasta results/snpEff/data/reference_db/sequences.fa
+        cd results/snpEff
+        snpEff build -genbank -v reference_db
+        touch results/snpEff/data/reference_db/.db_built
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T040626.879794.snakemake.log

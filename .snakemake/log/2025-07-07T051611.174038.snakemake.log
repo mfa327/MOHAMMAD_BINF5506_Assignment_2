@@ -1,0 +1,80 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+align_reads              1
+all                      1
+annotate_variants        1
+build_snpeff_db          1
+call_variants            1
+create_dirs              1
+download_sra             1
+sam_to_bam               1
+sort_bam                 1
+sra_to_fastq             1
+upload_s3                1
+total                   11
+
+Select jobs to execute...
+
+[Mon Jul  7 05:16:11 2025]
+rule build_snpeff_db:
+    input: results/raw/reference.fasta
+    output: results/snpEff/data/reference_db/.db_built
+    jobid: 10
+    reason: Missing output files: results/snpEff/data/reference_db/.db_built
+    resources: tmpdir=/tmp
+
+
+[Mon Jul  7 05:16:12 2025]
+rule create_dirs:
+    output: results/snakemake/.dirs_created
+    jobid: 9
+    reason: Code has changed since last execution
+    resources: tmpdir=/tmp
+
+Touching output file results/snakemake/.dirs_created.
+[Mon Jul  7 05:16:12 2025]
+Finished job 9.
+1 of 11 steps (9%) done
+Select jobs to execute...
+
+[Mon Jul  7 05:16:12 2025]
+rule download_sra:
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    jobid: 8
+    reason: Missing output files: results/raw/SRR1972739/SRR1972739.sra; Input files updated by another job: results/snakemake/.dirs_created
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 05:16:12 2025]
+Error in rule download_sra:
+    jobid: 8
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    shell:
+        
+        prefetch SRR1972739 -O results/raw
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Jul  7 05:16:13 2025]
+Error in rule build_snpeff_db:
+    jobid: 10
+    input: results/raw/reference.fasta
+    output: results/snpEff/data/reference_db/.db_built
+    shell:
+        
+        mkdir -p results/snpEff/data/reference_db
+        cp results/raw/reference.fasta results/snpEff/data/reference_db/sequences.fa
+        cd results/snpEff
+        snpEff build -genbank -v reference_db
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T051611.174038.snakemake.log

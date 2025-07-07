@@ -1,0 +1,11 @@
+Building DAG of jobs...
+Creating conda environment envs/snpeff.yaml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/envs/snpeff.yaml:
+Command:
+mamba env create --quiet --file "/home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/.snakemake/conda/5ead79ab5da5794d43bfaa5d0afb341d_.yaml" --prefix "/home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/.snakemake/conda/5ead79ab5da5794d43bfaa5d0afb341d_"
+Output:
+error    libmamba Non-conda folder exists at prefix - aborting.
+critical libmamba Non-conda folder exists at prefix - aborting.
+

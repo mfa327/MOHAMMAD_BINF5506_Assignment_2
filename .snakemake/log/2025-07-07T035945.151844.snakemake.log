@@ -1,0 +1,83 @@
+Building DAG of jobs...
+Creating conda environment envs/snpeff.yaml...
+Downloading and installing remote packages.
+Environment for /home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/envs/snpeff.yaml created (location: .snakemake/conda/5ead79ab5da5794d43bfaa5d0afb341d_)
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+align_reads               1
+all                       1
+annotate_variants         1
+build_snpeff_db           1
+call_variants             1
+create_dirs               1
+download_reference        1
+download_sra              1
+extract_sequence          1
+index_bam                 1
+mark_duplicates           1
+sort_bam                  1
+upload_s3                 1
+total                    13
+
+Select jobs to execute...
+
+[Mon Jul  7 04:00:19 2025]
+rule create_dirs:
+    output: results/snakemake/.dirs_created
+    jobid: 1
+    reason: Missing output files: results/snakemake/.dirs_created
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 04:00:19 2025]
+Finished job 1.
+1 of 13 steps (8%) done
+Select jobs to execute...
+
+[Mon Jul  7 04:00:19 2025]
+rule download_sra:
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    jobid: 3
+    reason: Input files updated by another job: results/snakemake/.dirs_created
+    resources: tmpdir=/tmp
+
+
+[Mon Jul  7 04:00:19 2025]
+rule download_reference:
+    input: results/snakemake/.dirs_created
+    output: results/raw/reference.fasta
+    jobid: 2
+    reason: Input files updated by another job: results/snakemake/.dirs_created
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 04:00:19 2025]
+[Mon Jul  7 04:00:19 2025]
+Error in rule download_sra:
+    jobid: 3
+    input: results/snakemake/.dirs_created
+    output: results/raw/SRR1972739/SRR1972739.sra
+    shell:
+        
+        prefetch SRR1972739 -O results/raw
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule download_reference:
+    jobid: 2
+    input: results/snakemake/.dirs_created
+    output: results/raw/reference.fasta
+    shell:
+        
+        efetch -db nucleotide -id AF086833.2 -format fasta > results/raw/reference.fasta
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job download_reference since they might be corrupted:
+results/raw/reference.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T035945.151844.snakemake.log

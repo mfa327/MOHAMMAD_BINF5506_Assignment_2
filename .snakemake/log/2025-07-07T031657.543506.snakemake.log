@@ -1,0 +1,42 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+align_reads              1
+all                      1
+annotate_variants        1
+call_variants            1
+index_bam                1
+mark_duplicates          1
+sort_bam                 1
+total                    7
+
+Select jobs to execute...
+
+[Mon Jul  7 03:16:57 2025]
+rule align_reads:
+    input: results/raw/reference.fasta, results/raw/SRR1972739.fastq
+    output: results/aligned/aligned.sam
+    jobid: 0
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:16:57 2025]
+Error in rule align_reads:
+    jobid: 0
+    input: results/raw/reference.fasta, results/raw/SRR1972739.fastq
+    output: results/aligned/aligned.sam
+    shell:
+        
+        bwa mem -R '@RG\tID=sample1\tSM=sample1\tPL=illumina' results/raw/reference.fasta results/raw/SRR1972739.fastq > results/aligned/aligned.sam
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job align_reads since they might be corrupted:
+results/aligned/aligned.sam
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T031657.543506.snakemake.log

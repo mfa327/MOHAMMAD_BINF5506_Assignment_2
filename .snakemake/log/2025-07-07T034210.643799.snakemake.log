@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WorkflowError:
+Failed to open source file /home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/envs/snpeff.yaml
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/envs/snpeff.yaml'

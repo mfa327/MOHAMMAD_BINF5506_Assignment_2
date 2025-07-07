@@ -1,0 +1,64 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+all                      1
+annotate_variants        1
+call_variants            1
+index_bam                1
+mark_duplicates          1
+total                    5
+
+Select jobs to execute...
+
+[Mon Jul  7 03:13:10 2025]
+rule mark_duplicates:
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/dedup.bam, results/aligned/dup_metrics.txt
+    jobid: 3
+    reason: Missing output files: results/aligned/dedup.bam; Updated input files: results/aligned/aligned.sorted.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:13:14 2025]
+Finished job 3.
+1 of 5 steps (20%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:13:14 2025]
+rule index_bam:
+    input: results/aligned/dedup.bam
+    output: results/aligned/dedup.bam.bai
+    jobid: 9
+    reason: Input files updated by another job: results/aligned/dedup.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:13:14 2025]
+Finished job 9.
+2 of 5 steps (40%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:13:14 2025]
+rule call_variants:
+    input: results/aligned/dedup.bam, results/aligned/dedup.bam.bai, results/raw/reference.fasta
+    output: results/variants/raw_variants.vcf
+    jobid: 2
+    reason: Input files updated by another job: results/aligned/dedup.bam.bai, results/aligned/dedup.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:13:17 2025]
+Error in rule call_variants:
+    jobid: 2
+    input: results/aligned/dedup.bam, results/aligned/dedup.bam.bai, results/raw/reference.fasta
+    output: results/variants/raw_variants.vcf
+    shell:
+        
+        gatk HaplotypeCaller -R results/raw/reference.fasta -I results/aligned/dedup.bam -O results/variants/raw_variants.vcf
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T031309.620548.snakemake.log

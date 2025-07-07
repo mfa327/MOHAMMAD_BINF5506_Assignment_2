@@ -1,0 +1,3 @@
+CreateRuleException in file /home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/Snakefile, line 19:
+The name all is already used by another rule
+  File "/home/ubuntu/Bioinformatics_Cloud_Computing/lab_1/Snakefile", line 19, in <module>

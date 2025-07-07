@@ -1,0 +1,107 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                  count
+-----------------  -------
+align_reads              1
+all                      1
+annotate_variants        1
+call_variants            1
+index_bam                1
+mark_duplicates          1
+sort_bam                 1
+total                    7
+
+Select jobs to execute...
+
+[Mon Jul  7 03:18:13 2025]
+rule align_reads:
+    input: results/raw/reference.fasta, results/raw/SRR1972739.fastq
+    output: results/aligned/aligned.sam
+    jobid: 5
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:18:15 2025]
+Finished job 5.
+1 of 7 steps (14%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:18:15 2025]
+rule sort_bam:
+    input: results/aligned/aligned.sam
+    output: results/aligned/aligned.sorted.bam
+    jobid: 4
+    reason: Input files updated by another job: results/aligned/aligned.sam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:18:15 2025]
+Finished job 4.
+2 of 7 steps (29%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:18:15 2025]
+rule mark_duplicates:
+    input: results/aligned/aligned.sorted.bam
+    output: results/aligned/dedup.bam, results/aligned/dup_metrics.txt
+    jobid: 3
+    reason: Input files updated by another job: results/aligned/aligned.sorted.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:18:20 2025]
+Finished job 3.
+3 of 7 steps (43%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:18:20 2025]
+rule index_bam:
+    input: results/aligned/dedup.bam
+    output: results/aligned/dedup.bam.bai
+    jobid: 9
+    reason: Input files updated by another job: results/aligned/dedup.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:18:20 2025]
+Finished job 9.
+4 of 7 steps (57%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:18:20 2025]
+rule call_variants:
+    input: results/aligned/dedup.bam, results/aligned/dedup.bam.bai, results/raw/reference.fasta
+    output: results/variants/raw_variants.vcf
+    jobid: 2
+    reason: Missing output files: results/variants/raw_variants.vcf; Input files updated by another job: results/aligned/dedup.bam.bai, results/aligned/dedup.bam
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:18:59 2025]
+Finished job 2.
+5 of 7 steps (71%) done
+Select jobs to execute...
+
+[Mon Jul  7 03:18:59 2025]
+rule annotate_variants:
+    input: results/variants/raw_variants.vcf
+    output: results/snpEff/annotated_variants.vcf
+    jobid: 1
+    reason: Missing output files: results/snpEff/annotated_variants.vcf; Input files updated by another job: results/variants/raw_variants.vcf
+    resources: tmpdir=/tmp
+
+[Mon Jul  7 03:18:59 2025]
+Error in rule annotate_variants:
+    jobid: 1
+    input: results/variants/raw_variants.vcf
+    output: results/snpEff/annotated_variants.vcf
+    shell:
+        
+        snpEff ann reference_db results/variants/raw_variants.vcf > results/snpEff/annotated_variants.vcf
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job annotate_variants since they might be corrupted:
+results/snpEff/annotated_variants.vcf
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2025-07-07T031813.267144.snakemake.log
