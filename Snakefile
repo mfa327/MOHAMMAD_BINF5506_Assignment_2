@@ -74,6 +74,19 @@ rule call_variants:
         bcftools mpileup -f {input.ref} {input.bam} | \
         bcftools call -mv -Ov -o {output.vcf}
         """
+# 8
+rule build_snpeff_db:
+    input:
+        "results/raw/reference.fasta"
+    output:
+        touch("results/snpEff/data/reference_db/.db_built")
+    shell:
+        """
+        mkdir -p results/snpEff/data/reference_db
+        cp {input} results/snpEff/data/reference_db/sequences.fa
+        cd results/snpEff
+        snpEff build -genbank -v reference_db
+        """
 
 
 rule build_snpeff_db:
