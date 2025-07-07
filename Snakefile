@@ -10,6 +10,16 @@ rule create_dirs:
     shell:
         "mkdir -p results/raw/SRR1972739 results/aligned results/variants results/annotated results/snpEff/data/reference_db && touch {output}"
 
+rule download_sra:
+    input:
+        "results/snakemake/.dirs_created"
+    output:
+        "results/raw/SRR1972739/SRR1972739.sra"
+    shell:
+        """
+        prefetch SRR1972739 -O results/raw
+        """
+
 rule build_snpeff_db:
     input:
         "results/raw/reference.fasta"
