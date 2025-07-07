@@ -98,6 +98,17 @@ rule annotate_variants:
         """
         snpEff -c snpEff.config reference_db {input.vcf} > {output}
         """
+# 10
+rule upload_s3:
+    input:
+        "results/variants/annotated.vcf"
+    output:
+        "results/snakemake/.s3_uploaded"
+    shell:
+        """
+        aws s3 cp {input} s3://mohammad-assignment-2/annotated.vcf
+        touch {output}
+        """
 
 
 rule build_snpeff_db:
