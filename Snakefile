@@ -29,6 +29,20 @@ rule sra_to_fastq:
         """
         fastq-dump --split-files --gzip --outdir results/raw/SRR1972739 results/raw/SRR1972739/SRR1972739.sra
         """
+#4
+rule align_reads:
+    input:
+        ref="results/raw/reference.fasta",
+        reads="results/raw/SRR1972739/SRR1972739.fastq"
+    output:
+        "results/aligned/SRR1972739.sam"
+    shell:
+        """
+        mkdir -p results/aligned
+        bwa index {input.ref}
+        bwa mem {input.ref} {input.reads} > {output}
+        """
+
 
 rule build_snpeff_db:
     input:
