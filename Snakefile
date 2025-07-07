@@ -42,6 +42,16 @@ rule align_reads:
         bwa index {input.ref}
         bwa mem {input.ref} {input.reads} > {output}
         """
+# 5
+rule sam_to_bam:
+    input:
+        "results/aligned/SRR1972739.sam"
+    output:
+        "results/aligned/SRR1972739.bam"
+    shell:
+        """
+        samtools view -bS {input} > {output}
+        """
 
 
 rule build_snpeff_db:
