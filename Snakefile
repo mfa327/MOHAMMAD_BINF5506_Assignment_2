@@ -19,6 +19,16 @@ rule download_sra:
         """
         prefetch SRR1972739 -O results/raw
         """
+#3
+rule sra_to_fastq:
+    input:
+        "results/raw/SRR1972739/SRR1972739.sra"
+    output:
+        "results/raw/SRR1972739/SRR1972739.fastq"
+    shell:
+        """
+        fastq-dump --split-files --gzip --outdir results/raw/SRR1972739 results/raw/SRR1972739/SRR1972739.sra
+        """
 
 rule build_snpeff_db:
     input:
