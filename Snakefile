@@ -52,6 +52,16 @@ rule sam_to_bam:
         """
         samtools view -bS {input} > {output}
         """
+# 6
+rule sort_bam:
+    input:
+        "results/aligned/SRR1972739.bam"
+    output:
+        "results/aligned/SRR1972739.sorted.bam"
+    shell:
+        """
+        samtools sort {input} -o {output}
+        """
 
 
 rule build_snpeff_db:
