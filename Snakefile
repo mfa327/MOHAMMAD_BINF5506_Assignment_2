@@ -87,6 +87,17 @@ rule build_snpeff_db:
         cd results/snpEff
         snpEff build -genbank -v reference_db
         """
+# 9
+rule annotate_variants:
+    input:
+        vcf="results/aligned/variants.raw.vcf",
+        db_built="results/snpEff/data/reference_db/.db_built"
+    output:
+        "results/variants/annotated.vcf"
+    shell:
+        """
+        snpEff -c snpEff.config reference_db {input.vcf} > {output}
+        """
 
 
 rule build_snpeff_db:
